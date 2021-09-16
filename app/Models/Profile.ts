@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import City from './City'
 
 export default class Profile extends BaseModel {
   @column({ isPrimary: true })
@@ -26,4 +27,10 @@ export default class Profile extends BaseModel {
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
+
+  @manyToMany(() => City, {
+    pivotTable: "profile_city_pivots"
+  })
+  public cities: ManyToMany<typeof City>
+  
 }

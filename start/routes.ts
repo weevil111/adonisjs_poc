@@ -16,6 +16,8 @@ Route.group(() => {
   Route.get("/profile", "ProfilesController.index");
   Route.post("/profile", "ProfilesController.create");
   Route.patch("/profile", "ProfilesController.update");
+  Route.post("/wishlist", "ProfilesController.addToWishlist");
+  Route.delete("/wishlist", "ProfilesController.removeFromWishlist");
 }).middleware("auth");
 
 // Cities routes
