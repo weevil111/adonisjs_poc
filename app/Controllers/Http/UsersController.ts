@@ -1,18 +1,17 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User';
+import { loginSchema, registerSchema } from 'App/schemas/UsersSchema';
 
 export default class UsersController {
 
   public async register({request}: HttpContextContract){
-    const email = request.input("email");
-    const password = request.input("password")
+    const {email, password} = await request.validate({schema: registerSchema});
     const newUser = await User.create({email, password});
     return newUser;
   }
   
   public async login({request, auth}: HttpContextContract){
-    const email = request.input("email");
-    const password = request.input("password");
+    const {email, password} = await request.validate({schema: loginSchema});
     const token = await auth.attempt(email, password);
     return token;
   }
